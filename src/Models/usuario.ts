@@ -3,15 +3,19 @@ import sequelize from '../config/database';
 import bcrypt from 'bcrypt';
 
 export class Usuario extends Model {
-    public id!: number;
+    public readonly id!: number;
     public nomeCompleto!: string;
     public CPF!: string;
     public email!: string;
-    public senha!: string;
+    private senha!: string;
 
     public async setSenha(senha: string): Promise<void>{
         const salt = await bcrypt.genSalt(10);
         this.senha = await bcrypt.hash(senha, salt);
+    }
+
+    public async compararSenha(senha: string): Promise<boolean>{
+        return bcrypt.compare(senha, this.senha);
     }
 
 }
@@ -29,11 +33,20 @@ Usuario.init(
         },
         CPF: {
             type: DataTypes.STRING(11),
-            allowNull: false
+            allowNull: false,
+            unique: true,
+            validate: {
+                len: [11, 11],
+                isNumeric: true
+            }
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            }
         },
         senha: {
             type: DataTypes.STRING,
@@ -43,5 +56,6 @@ Usuario.init(
     {
         sequelize,
         tableName: 'Usuarios',
+        timestamps: false
     }
 );
