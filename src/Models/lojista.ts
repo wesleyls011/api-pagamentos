@@ -47,4 +47,4 @@ Lojista.init(
         tableName: 'Lojistas',
         timestamps: false
     }
-)
+);
