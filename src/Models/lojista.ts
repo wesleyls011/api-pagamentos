@@ -1,38 +1,27 @@
 import {Model, DataTypes} from 'sequelize';
 import sequelize from '../config/database';
-import bcrypt from 'bcrypt';
+import { CriptografarSenha } from './CriptografarSenha';
 
-export class Lojista extends Model{
-    public readonly id!: string;
+export class Lojista extends CriptografarSenha {
+    public readonly id!: number;
     public nomeCompleto!: string;
     public CPF!: string;
     public email!: string;
-    private senha!: string;
-
-    public async setSenha(senha: string): Promise<void>{
-        const salt = await bcrypt.genSalt(10);
-        this.senha = await bcrypt.hash(senha, salt);
-    }
-
-    public async compararSenha(senha: string): Promise<boolean>{
-        return bcrypt.compare(senha, this.senha);
-    }
-
 }
 
 Lojista.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true
         },
         nomeCompleto: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         CPF: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(11),
             allowNull: false,
             unique: true,
             validate: {

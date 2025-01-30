@@ -1,23 +1,12 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
-import bcrypt from 'bcrypt';
+import { CriptografarSenha } from './CriptografarSenha';
 
-export class Usuario extends Model {
+export class Usuario extends CriptografarSenha {
     public readonly id!: number;
     public nomeCompleto!: string;
     public CPF!: string;
     public email!: string;
-    private senha!: string;
-
-    public async setSenha(senha: string): Promise<void>{
-        const salt = await bcrypt.genSalt(10);
-        this.senha = await bcrypt.hash(senha, salt);
-    }
-
-    public async compararSenha(senha: string): Promise<boolean>{
-        return bcrypt.compare(senha, this.senha);
-    }
-
 }
 
 Usuario.init(
@@ -46,7 +35,7 @@ Usuario.init(
             unique: true,
             validate: {
                 isEmail: true,
-            }
+            },
         },
         senha: {
             type: DataTypes.STRING,

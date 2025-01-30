@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { Model, DataTypes } from 'sequelize';
 
 export class CriptografarSenha extends Model {
-    private senha: string;
+    private senha!: string;
 
     // metodo que criptografa senha
     public async criptografarSenha(senha: string): Promise<void> {
