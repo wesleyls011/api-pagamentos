@@ -7,6 +7,7 @@ export class Lojista extends CriptografarSenha {
     public nomeCompleto!: string;
     public CPF!: string;
     public email!: string;
+    public saldo!: number;
 }
 
 Lojista.init(
@@ -41,6 +42,11 @@ Lojista.init(
             type: DataTypes.STRING,
             allowNull: false
         },
+        saldo: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: false,
+            defaultValue: 0
+        }
     },
 
     {sequelize,
