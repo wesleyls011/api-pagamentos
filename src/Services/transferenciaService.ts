@@ -57,7 +57,7 @@ try {
         data: new Date(),
         usuarioID: payerId,
         lojistaID: payeeId, // o id vai ser mapeado se for lojista ou usuario
-        status: 'concluida'
+        status: 'autorizado'
     }, { transaction: t });
 
     // commitar a transacao
