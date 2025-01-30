@@ -5,7 +5,7 @@ import { CriptografarSenha } from './CriptografarSenha';
 export class Lojista extends CriptografarSenha {
     public readonly id!: number;
     public nomeCompleto!: string;
-    public CPF!: string;
+    public CNPJ!: string;
     public email!: string;
     public saldo!: number;
 }
@@ -21,12 +21,12 @@ Lojista.init(
             type: DataTypes.STRING(100),
             allowNull: false
         },
-        CPF: {
-            type: DataTypes.STRING(11),
+        CNPJ: {
+            type: DataTypes.STRING(14),
             allowNull: false,
             unique: true,
             validate: {
-                len: [11, 11],
+                len: [14, 14],
                 isNumeric: true
             }
         },
