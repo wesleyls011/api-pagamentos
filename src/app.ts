@@ -1,17 +1,16 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import transferenciaRoutes from './Routes/transferenciaRoutes';
+import bodyParser from 'body-parser';
 
-dotenv.config();
+const app = express();
 
-const app = express ();
-const port = process.env.PORT || 3000;
+app.use(bodyParser.json());
 
-app.use(express.json());
+// usar as rotas de transferencia
+app.use('/api', transferenciaRoutes);
 
-app.get('/', (req, res) => {
-    res.send('A API ta no ar');
-});
-
-app.listen(port, () => {
-    console.log(`servidor rodando na porta ${port}`);
+// inicia o servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
