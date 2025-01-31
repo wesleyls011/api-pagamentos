@@ -10,7 +10,8 @@ export const verificarTipoUser = async (req: Request, res: Response, next: NextF
         //verificar se o payer e um lojista
         const payerLojista = await Lojista.findByPk(payerId);
         if (payerLojista){ // lojista apenas recebe transferencia
-            return res.status(400).json({error: 'Lojistas nao podem fazer transferencias'});
+            res.status(400).json({error: 'Lojistas nao podem fazer transferencias'});
+            return;
         }  
    
         //verificar se o payee e um lojista
@@ -24,6 +25,7 @@ export const verificarTipoUser = async (req: Request, res: Response, next: NextF
         // se for comum continua a transferencia
         next();
     } catch (error) {
-        return res.status(500).json({ error: 'Erro ao verificar o tipo de usuario'});
+        res.status(500).json({ error: 'Erro ao verificar o tipo de usuario'});
+        return;
     } 
 }
