@@ -10,8 +10,8 @@ export const realizarTransferencia = async (payerId: number, payeeId: number, va
 
 try {
     // consulta o serviço externo para autorizacao
-    const response = await axios.get('https://util.devitools/spi/v2/authorize');
-    if (response.data.status !== 'autorizado') {
+    const response = await axios.get('https://util.devi.tools/api/v2/authorize');
+    if (response.data.message !== 'Autorizado') {
         throw new Error('transferencia nao autorizada');
     }
 
