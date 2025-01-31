@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-const validarTransferencia = async (req: Request, res: Response, next: NextFunction) => {
+export const validarTransferencia = async (req: Request, res: Response, next: NextFunction) => {
     const { payerId, payeeId, valor } = req.body;
     
     if (!payerId || !payeeId || !valor || valor <=0){
