@@ -1,4 +1,4 @@
-import { Lojista } from "../Models/Lojista";
+import { Lojista } from "../Models/lojista";
 import { Response, Request } from "express";
 import { CriptografarSenha } from "../Models/CriptografarSenha";
 
@@ -9,14 +9,13 @@ class LojistaService {
 
         try{
 
-            const criptografarSenha = new CriptografarSenha();
-            await criptografarSenha.criptografarSenha(senha);
+            const senhaCriptografada = await CriptografarSenha.criptografarSenha(senha);
 
             const lojista = await Lojista.create({
                 nomeCompleto,
                 CNPJ,
                 email,
-                senha: criptografarSenha.senhaCriptografada
+                senha: senhaCriptografada
             });
 
             return res.status(201).json(lojista);

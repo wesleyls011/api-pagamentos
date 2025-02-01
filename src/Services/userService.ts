@@ -1,5 +1,5 @@
 import { CriptografarSenha } from "../Models/CriptografarSenha";
-import { Usuario } from "../Models/Usuario";
+import { Usuario } from "../Models/usuario";
 import { Response, Request } from "express";
 
 class UserService {
@@ -10,15 +10,14 @@ class UserService {
         try{
         
         // instancia o model de criptografia de senha e criptografa a senha
-        const criptografarSenha = new CriptografarSenha();
-        await criptografarSenha.criptografarSenha(senha);
+        const senhaCriptografada = await CriptografarSenha.criptografarSenha(senha);
 
         // cria um novo usuario
         const user = await Usuario.create({
             nomeCompleto,
             CPF,
             email,
-            senha: criptografarSenha.senhaCriptografada
+            senha: senhaCriptografada
         });
         
     // retorna o usuario criado

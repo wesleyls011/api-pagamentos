@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { Usuario } from "../Models/Usuario";
-import { Lojista } from "../Models/Lojista";
+import { Usuario } from "../Models/usuario";
+import { Lojista } from "../Models/lojista";
 
 export const verificarTipoUser = async (req: Request, res: Response, next: NextFunction)=>{
     const {payerId, payeeId} = req.body;

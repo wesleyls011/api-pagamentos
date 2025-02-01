@@ -1,7 +1,7 @@
 import {Model, DataTypes} from 'sequelize';
 import sequelize from '../config/database';
-import { Usuario } from './Usuario';
-import { Lojista } from './Lojista';
+import { Usuario } from './usuario';
+import { Lojista } from './lojista';
 
 export class Transferencia extends Model {
     public readonly id!: number;

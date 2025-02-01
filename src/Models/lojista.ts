@@ -1,13 +1,13 @@
 import {Model, DataTypes} from 'sequelize';
 import sequelize from '../config/database';
-import { CriptografarSenha } from './CriptografarSenha';
 
-export class Lojista extends CriptografarSenha {
+export class Lojista extends Model {
     public readonly id!: number;
     public nomeCompleto!: string;
     public CNPJ!: string;
     public email!: string;
     public saldo!: number;
+    public senha!: string;
 }
 
 Lojista.init(
