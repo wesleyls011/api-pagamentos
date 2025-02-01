@@ -1,82 +1,81 @@
 import { CriptografarSenha } from "../Models/CriptografarSenha";
 import { Usuario } from "../Models/usuario";
-import { Response, Request } from "express";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 class UserService {
-    
-    async createUsuario(req: Request, res: Response){
-        const {nomeCompleto, CPF, email, senha} = req.body;
-        const saldoInicial =0;
-        
-        try{
-        // cria um identificador unico para o usuario
-        const identificador = uuidv4();
 
-        // instancia o model de criptografia de senha e criptografa a senha
-        const senhaCriptografada = await CriptografarSenha.criptografarSenha(senha);
-
-        // cria um novo usuario
-        const user = await Usuario.create({
-            nomeCompleto,
-            CPF,
-            email,
-            senha: senhaCriptografada,
-            saldo: saldoInicial,
-            identificador
-        });
+    // Método para criar um usuário
+    async createUsuario(nomeCompleto: string, CPF: string, email: string, senha: string, saldo: number) {
+        const saldoInicial = saldo || 0; // usa o saldo da requisiçao ou 0 como valor padrao
         
-    // retorna o usuario criado
-    return res.status(201).json(user);
-    
-}catch (error: any){ // trata erros de validacao que foram definidos no model
-    if (error.name === "SequelizeUniqueConstraintError"){
-        res.status(400).json({message: 'email ou CPF ja cadastrado'});
-    } else {
-        console.error(error);
-        res.status(500).json({message: "Erro interno"});
+        try {
+            // cria um identificador unico para o usuário
+            const identificador = uuidv4();
+
+            // instancia o model de criptografia de senha e criptografa a senha
+            const senhaCriptografada = await CriptografarSenha.criptografarSenha(senha);
+
+            // cria um novo usuario no banco de dados
+            const user = await Usuario.create({
+                nomeCompleto,
+                CPF,
+                email,
+                senha: senhaCriptografada,
+                saldo: saldoInicial,
+                identificador
+            });
+
+            // retorna o usuario criado
+            return user;
+
+        } catch (error: any) {
+            // lança erro em caso de erro na criaçao
+            if (error.name === "SequelizeUniqueConstraintError") {
+                throw new Error('email ou CPF ja cadastrado');
+            } else {
+                console.error(error);
+                throw new Error('Erro interno ao criar o usuario');
+            }
+        }
     }
-}
-    }
-    
-    // metodo que retorna todos os usuarios
-    async getUsuarioById(id: number){
+
+    // metodo que retorna um usuário pelo ID
+    async getUsuarioById(id: number) {
         const user = await Usuario.findByPk(id);
-    if (!user){
-        throw new Error('Usuario nao encontrado');
+
+        if (!user) {
+            throw new Error('usuario não encontrado');
+        }
+
+        return user;
     }
 
-    return user;
-  }
+    // metodo para atualizar um usuario
+    async updateUsuario(id: number, dadosAtualizados: Partial<Usuario>) {
+        const user = await Usuario.findByPk(id);
 
+        if (!user) {
+            throw new Error('usuario não encontrado');
+        }
 
-  // metodo para atualizar um usuario
-  async updateUsuario(id: number, dadosAtualizados: Partial<Usuario>){
-    const user = await Usuario.findByPk(id);
+        await user.update(dadosAtualizados);
 
-    if (!user){
-        throw new Error('Usuario nao encontrado');
+        return user;
     }
 
-    await user.update(dadosAtualizados);
+    // metodo para deletar um usuario
+    async deleteUsuario(id: number) {
+        const user = await Usuario.findByPk(id);
 
-    return user;
-  }
+        if (!user) {
+            throw new Error('usuario nao encontrado');
+        }
 
+        await user.destroy();
 
-  // metodo para deletar um usuario
-  async deleteUsuario(id:number){
-    const user = await Usuario.findByPk(id);
-
-    if (!user){
-        throw new Error('Usuario nao encontrado');
+        return { message: 'usuario deletado com sucesso' };
     }
-
-    await user.destroy();
-
-    return {message: 'Usuario deletado com sucesso'};
-  }
 }
 
-// exporta uma instancia da classe UserService
+// exporta uma instancia da classe 
 export default new UserService();
