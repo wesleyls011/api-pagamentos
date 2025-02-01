@@ -11,8 +11,10 @@ app.use(bodyParser.json());
 // usar as rotas de transferencia
 app.use('/api', transferenciaRoutes);
 
+// usar as rotas de usuario
 app.use('/api', userRoutes);
 
+// usar as rotas de lojista
 app.use('/api', lojistaRoutes);
 
 // inicia o servidor
