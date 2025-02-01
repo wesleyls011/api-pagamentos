@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Usuario } from "../Models/Usuario";
 import { Lojista } from "../Models/Lojista";
-import { error } from "console";
 
 export const verificarTipoUser = async (req: Request, res: Response, next: NextFunction)=>{
     const {payerId, payeeId} = req.body;
@@ -17,9 +16,7 @@ export const verificarTipoUser = async (req: Request, res: Response, next: NextF
         //verificar se o payee e um lojista
         const payeeLojista = await Lojista.findByPk(payeeId);
         if (payeeLojista){
-            req.body.isPayeeLojista = true;
-        } else {
-            req.body.isPayeeLojista = false;
+            req.body.isPayeeLojista = !!payeeLojista;
         }
 
         // se for comum continua a transferencia

@@ -7,9 +7,12 @@ const router = Router();
 
 // difinir a rota de transferencia
 router.post('/transferencia',
-    //verificarSaldo,   // usando o middleware de verificar saldo
+    verificarSaldo,   // usando o middleware de verificar saldo
     validarTransferencia,  // usando o middleware de validar transferencia
     transferir  // usando o controller pra fazer a transferencia
 );
+
+// definir a rota de usuario
+
 
 export default router;
