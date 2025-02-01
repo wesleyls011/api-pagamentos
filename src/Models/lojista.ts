@@ -3,7 +3,7 @@ import sequelize from '../config/database';
 
 export class Lojista extends Model {
     public readonly id!: number;
-    public nomeCompleto!: string;
+    public nomeLojista!: string;
     public CNPJ!: string;
     public email!: string;
     public saldo!: number;
@@ -18,7 +18,7 @@ Lojista.init(
             autoIncrement: true,
             primaryKey: true
         },
-        nomeCompleto: {
+        nomeLojista: {
             type: DataTypes.STRING(100),
             allowNull: false
         },

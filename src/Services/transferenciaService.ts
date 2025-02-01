@@ -1,6 +1,7 @@
 import { Usuario } from "../models/Usuario";
 import sequelize from "../config/database";
 import Decimal from "decimal.js";
+import { Lojista } from "../models/Lojista";
 
 class TransferService {
     async realizarTransferencia(payer: string, payee: string, value: number) {
@@ -13,10 +14,14 @@ class TransferService {
         try {
 
             const payerUser = await Usuario.findOne({ where: { identificador: payer.trim() }, transaction });
-            const payeeUser = await Usuario.findOne({ where: { identificador: payee.trim() }, transaction });
+            let payeeUser: Usuario | Lojista | null = await Usuario.findOne({ where: { identificador: payee.trim() }, transaction });
             
+            if (!payeeUser) {
+                payeeUser = await Lojista.findOne({ where: { identificador: payee.trim() }, transaction });
+            }
+
             if (!payerUser || !payeeUser) {
-                throw new Error("payee nao encontrado");
+                throw new Error("usuario ou lojista nao encontrado");
             }
 
             if (payerUser.saldo < value) {
