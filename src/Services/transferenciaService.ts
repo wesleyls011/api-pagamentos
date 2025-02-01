@@ -1,5 +1,5 @@
-import { Usuario } from "../Models/Usuario";
-import { Lojista } from "../Models/Lojista";
+import { Usuario } from "../Models/usuario";
+import { Lojista } from "../Models/lojista";
 import { Transferencia } from "../Models/Transferencia";
 import axios from "axios";
 import sequelize from '../config/database';

@@ -1,22 +1,14 @@
 import bcrypt from 'bcrypt';
-import { Model, DataTypes } from 'sequelize';
 
-export class CriptografarSenha extends Model {
-    private senha!: string;
-
-    // metodo que criptografa senha
-    public async criptografarSenha(senha: string): Promise<void> {
+export class CriptografarSenha {
+    // metodo que criptografa a senha
+    public static async criptografarSenha(senha: string): Promise<string> {
         const salt = await bcrypt.genSalt(10);
-        this.senha = await bcrypt.hash(senha, salt);
+        return bcrypt.hash(senha, salt);
     }
 
-    // metodo que valida senha
-    public async validarSenha(senha: string): Promise<boolean> {
-        return await bcrypt.compare(senha, this.senha);
-    }
-
-    // getter que retorna senha criptografada
-    public get senhaCriptografada(): string {
-        return this.senha;
+    // metodo que valida a senha
+    public static async validarSenha(senha: string, senhaCriptografada: string): Promise<boolean> {
+        return bcrypt.compare(senha, senhaCriptografada);
     }
 }

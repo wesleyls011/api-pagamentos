@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Usuario } from "../Models/Usuario";
+import { Usuario } from "../Models/usuario";
 
 
 export const verificarSaldo = async (req: Request, res: Response, next: NextFunction): Promise<void> =>  {
