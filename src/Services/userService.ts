@@ -6,6 +6,7 @@ class UserService {
     
     async createUsuario(req: Request, res: Response){
         const {nomeCompleto, CPF, email, senha} = req.body;
+        const saldoInicial =0;
         
         try{
         
@@ -17,7 +18,8 @@ class UserService {
             nomeCompleto,
             CPF,
             email,
-            senha: senhaCriptografada
+            senha: senhaCriptografada,
+            saldo: saldoInicial
         });
         
     // retorna o usuario criado

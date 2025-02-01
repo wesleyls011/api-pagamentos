@@ -6,6 +6,7 @@ class LojistaService {
 
     async createLojista(req: Request, res: Response){
         const {nomeCompleto, CNPJ, email, senha} = req.body;
+        const saldoInicial = 0;
 
         try{
 
@@ -15,7 +16,8 @@ class LojistaService {
                 nomeCompleto,
                 CNPJ,
                 email,
-                senha: senhaCriptografada
+                senha: senhaCriptografada,
+                saldo: saldoInicial
             });
 
             return res.status(201).json(lojista);
