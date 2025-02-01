@@ -1,69 +1,47 @@
 import { Usuario } from "../Models/usuario";
-import { Lojista } from "../Models/lojista";
-import { Transferencia } from "../Models/Transferencia";
-import axios from "axios";
-import sequelize from '../config/database';
+import sequelize from "../config/database";
+import Decimal from "decimal.js";
 
-export const realizarTransferencia = async (payerId: number, payeeId: number, valor: number, isPayeeLojista: boolean) => {
-    const t = await sequelize.transaction();
-
-
-try {
-    // consulta o serviço externo para autorizacao
-    const response = await axios.get('https://util.devi.tools/api/v2/authorize');
-    if (response.data.message !== 'Autorizado') {
-        throw new Error('transferencia nao autorizada');
-    }
-
-    let payee;
-
-    // verificar se o payee e um lojista ou usuario
-    if(isPayeeLojista){
-        // se for lojista
-        payee = await Lojista.findByPk(payeeId);
-        if (!payee) {
-            throw new Error('Lojista não encontrado');
+class TransferService {
+    async realizarTransferencia(payer: string, payee: string, value: number) {
+        if (value <= 0) {
+            throw new Error("O valor nao pode ser zero.");
         }
 
-        // adicionar valor no saldo do lojista
-        payee.saldo += valor;
-        await payee.save({ transaction: t });
-    } else {
-        // se for usuario
-        payee = await Usuario.findByPk(payeeId);
-        if (!payee) {
-            throw new Error('Usuario não encontrado');
+        const transaction = await sequelize.transaction(); // inicia uma transaçao
+
+        try {
+
+            const payerUser = await Usuario.findOne({ where: { identificador: payer.trim() }, transaction });
+            const payeeUser = await Usuario.findOne({ where: { identificador: payee.trim() }, transaction });
+            
+            if (!payerUser || !payeeUser) {
+                throw new Error("payee nao encontrado");
+            }
+
+            if (payerUser.saldo < value) {
+                throw new Error("saldo insuficiente.");
+            }
+
+            const novoSaldoPayer = new Decimal(payerUser.saldo).minus(value);
+            const novoSaldoPayee = new Decimal(payeeUser.saldo).plus(value);
+
+            console.log("valor da transferencia:", value);
+            console.log("novo saldo do payer:", novoSaldoPayer.toString());
+            console.log("novo saldo do payee:", novoSaldoPayee.toString());
+
+
+            await payerUser.update({ saldo: novoSaldoPayer.toString() }, { transaction });
+            await payeeUser.update({ saldo: novoSaldoPayee.toString() }, { transaction }); 
+
+            await transaction.commit(); // confirma a transaçao
+
+            return { message: "Transferência realizada com sucesso!" };
+        } catch (error) {
+            await transaction.rollback(); // reverte se der erro
+            throw error;
         }
-
-        // adicionar valor no saldo do usuario
-        payee.saldo += valor;
-        await payee.save({ transaction: t });
     }
-
-    // subtrair valor do saldo do payer 
-    const payer = await Usuario.findByPk(payerId);
-    if (!payer) { 
-        throw new Error('Usuario pagador não encontrado');  // pra garantir que o payer nao e nulo
-    }
-    payer.saldo -= valor;
-    await payer.save({ transaction: t });
-
-    // registrar a transferencia
-    const transferencia = await Transferencia.create({
-        valor,
-        data: new Date(),
-        usuarioID: payerId,
-        lojistaID: payeeId, // o id vai ser mapeado se for lojista ou usuario
-        status: 'autorizado'
-    }, { transaction: t });
-
-    // commitar a transacao
-    await t.commit();
-
-    return transferencia;
-} catch (error) {
-    await t.rollback();
-    throw error;
 }
 
-}
+export default new TransferService();

@@ -1,6 +1,7 @@
 import { Lojista } from "../Models/lojista";
 import { Response, Request } from "express";
 import { CriptografarSenha } from "../Models/CriptografarSenha";
+import {v4 as uuidv4} from 'uuid';
 
 class LojistaService {
 
@@ -10,6 +11,8 @@ class LojistaService {
 
         try{
 
+            const identificador = uuidv4();
+
             const senhaCriptografada = await CriptografarSenha.criptografarSenha(senha);
 
             const lojista = await Lojista.create({
@@ -17,7 +20,8 @@ class LojistaService {
                 CNPJ,
                 email,
                 senha: senhaCriptografada,
-                saldo: saldoInicial
+                saldo: saldoInicial,
+                identificador
             });
 
             return res.status(201).json(lojista);

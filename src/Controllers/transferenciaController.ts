@@ -1,12 +1,15 @@
 import { Request, Response } from "express";
-import { realizarTransferencia } from "../Services/transferenciaService";
+import realizarTransferencia from "../Services/transferenciaService";
+import transferenciaService from "../Services/transferenciaService";
 
 export const transferir = async (req : Request, res: Response)=> {
-    const { payerId, payeeId, valor, isPayeeLojista } = req.body;
+    const { payer, payee, value, isPayeeLojista } = req.body;
+    console.log("Corpo da requisição:", req.body);
+
 
     try {
         // chama o serviço de transferencia s
-        const transferencia = await realizarTransferencia(payerId, payeeId, valor, isPayeeLojista);
+        const transferencia = await transferenciaService.realizarTransferencia(payer, payee, value);
         
         //retorna a transferencia que acabou de ser criada
         return res.status(200).json(transferencia);
