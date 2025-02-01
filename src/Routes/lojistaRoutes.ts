@@ -11,4 +11,12 @@ router.get("/:id", async (req, res) => {
     await lojistaController.getLojistaById(req, res);
 });
 
+router.put("/:id", async (req, res) => {
+    await lojistaController.updateLojista(req, res);
+});
+
+router.delete("/:id", async (req, res) => {
+    await lojistaController.deleteLojista(req, res);
+});
+
 export default router;

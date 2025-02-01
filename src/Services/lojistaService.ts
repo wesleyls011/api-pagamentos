@@ -38,6 +38,30 @@ class LojistaService {
 
         return lojista;
     }
+
+    async updateLojista(id: number, dadosAtualizados: Partial<Lojista>){
+        const lojista = await Lojista.findByPk(id);
+
+        if(!lojista){
+            throw new Error('Lojista nao encontrado');
+        }
+
+        await lojista.update(dadosAtualizados);
+
+        return lojista;
+    }
+
+    async deleteLojista(id: number){
+        const lojista = await Lojista.findByPk(id);
+
+        if(!lojista){
+            throw new Error('Lojista nao encontrado');
+        }
+
+        await lojista.destroy();
+
+        return lojista;
+    }
 }
 
 export default new LojistaService();
