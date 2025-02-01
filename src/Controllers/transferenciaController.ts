@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { realizarTransferencia } from "../Services/transferenciaService";
 
-export const transferir = async (req : Request, res: Response): Promise<void> => {
+export const transferir = async (req : Request, res: Response)=> {
     const { payerId, payeeId, valor, isPayeeLojista } = req.body;
 
     try {
@@ -9,15 +9,14 @@ export const transferir = async (req : Request, res: Response): Promise<void> =>
         const transferencia = await realizarTransferencia(payerId, payeeId, valor, isPayeeLojista);
         
         //retorna a transferencia que acabou de ser criada
-        res.status(200).json(transferencia);
-        return;
+        return res.status(200).json(transferencia);
+        
     } catch (error: unknown) {
         if (error instanceof Error) {
-        res.status(500).json({ error: error.message });
-        return;
+        return res.status(500).json({ error: error.message });
+        
     } else {
-        res.status(500).json({ error: 'Erro desconhecido' });
-        return;
+        return res.status(500).json({ error: 'Erro desconhecido' });
     }
 
 }
