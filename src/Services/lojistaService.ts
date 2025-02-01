@@ -1,13 +1,12 @@
-import { Lojista } from "../Models/lojista";
+import { Lojista } from "../models/Lojista";
 import { Response, Request } from "express";
-import { CriptografarSenha } from "../Models/CriptografarSenha";
+import { CriptografarSenha } from "../models/CriptografarSenha";
 import {v4 as uuidv4} from 'uuid';
 
 class LojistaService {
 
-    async createLojista(req: Request, res: Response){
-        const {nomeCompleto, CNPJ, email, senha} = req.body;
-        const saldoInicial = 0;
+    async createLojista(nomeLojista: string, CNPJ: string, email: string, senha: string, saldo: number){
+        const saldoInicial = saldo || 0;
 
         try{
 
@@ -16,7 +15,7 @@ class LojistaService {
             const senhaCriptografada = await CriptografarSenha.criptografarSenha(senha);
 
             const lojista = await Lojista.create({
-                nomeCompleto,
+                nomeLojista,
                 CNPJ,
                 email,
                 senha: senhaCriptografada,
@@ -24,14 +23,14 @@ class LojistaService {
                 identificador
             });
 
-            return res.status(201).json(lojista);
+            return lojista;
 
         } catch (error: any){
             if (error.name === "SequelizeUniqueConstraintError"){
-                res.status(400).json({message: 'email ou CNPJ ja cadastrado'});
+                throw new Error('email ou CNPJ ja cadastrado');
             } else {
                 console.error(error);
-                res.status(500).json({message: "Erro interno"});
+                throw new Error('Erro interno ao criar o lojista');
             }
         }
     }

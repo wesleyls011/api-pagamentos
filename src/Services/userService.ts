@@ -1,5 +1,5 @@
-import { CriptografarSenha } from "../Models/CriptografarSenha";
-import { Usuario } from "../Models/usuario";
+import { CriptografarSenha } from "../models/CriptografarSenha";
+import { Usuario } from "../models/Usuario";
 import { v4 as uuidv4 } from 'uuid';
 
 class UserService {

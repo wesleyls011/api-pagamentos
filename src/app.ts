@@ -1,8 +1,8 @@
 import express from 'express';
-import transferenciaRoutes from './Routes/transferenciaRoutes';
+import transferenciaRoutes from './routes/transferenciaRoutes';
 import bodyParser from 'body-parser';
-import userRoutes from './Routes/usuarioRoutes';
-import lojistaRoutes from './Routes/lojistaRoutes';
+import userRoutes from './routes/usuarioRoutes';
+import lojistaRoutes from './routes/lojistaRoutes';
 
 const app = express();
 
