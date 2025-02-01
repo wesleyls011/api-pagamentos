@@ -42,6 +42,30 @@ class UserService {
 
     return user;
   }
+
+  async updateUsuario(id: number, dadosAtualizados: Partial<Usuario>){
+    const user = await Usuario.findByPk(id);
+
+    if (!user){
+        throw new Error('Usuario nao encontrado');
+    }
+
+    await user.update(dadosAtualizados);
+
+    return user;
+  }
+
+  async deleteUsuario(id:number){
+    const user = await Usuario.findByPk(id);
+
+    if (!user){
+        throw new Error('Usuario nao encontrado');
+    }
+
+    await user.destroy();
+
+    return {message: 'Usuario deletado com sucesso'};
+  }
 }
 
 // exporta uma instancia da classe UserService
