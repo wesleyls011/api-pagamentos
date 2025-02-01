@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
 export const validarTransferencia = async (req: Request, res: Response, next: NextFunction) => {
-    const { payerId, payeeId, valor } = req.body;
+    const { payer, payee, value } = req.body;
     
-    if (!payerId || !payeeId || !valor || valor <=0){
+    if (!payer || !payee || !value || value <=0){
         res.status(400).json({error: 'Dados invalidos para transferencia'});
         return;
     } 
