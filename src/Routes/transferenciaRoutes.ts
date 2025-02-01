@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { transferir } from "../Controllers/transferenciaController";
-import { validarTransferencia } from "../Middlewares/validarTransferencia";
-import { verificarSaldo} from "../Middlewares/verificarSaldo";
+import { transferir } from "../controllers/TransferenciaController";
+import { validarTransferencia } from "../middlewares/validarTransferencia";
+import { verificarSaldo} from "../middlewares/verificarSaldo";
 
 const router = Router();
 

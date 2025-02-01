@@ -1,5 +1,5 @@
 import express from 'express';
-import lojistaController from '../Controllers/lojistaController';
+import lojistaController from '../controllers/LojistaController';
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import { Usuario } from "../Models/usuario";
+import { Usuario } from "../models/Usuario";
 import sequelize from "../config/database";
 import Decimal from "decimal.js";
 
