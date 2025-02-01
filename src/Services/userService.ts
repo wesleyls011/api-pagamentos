@@ -1,6 +1,7 @@
 import { CriptografarSenha } from "../Models/CriptografarSenha";
 import { Usuario } from "../Models/usuario";
 import { Response, Request } from "express";
+import {v4 as uuidv4} from 'uuid';
 
 class UserService {
     
@@ -9,7 +10,9 @@ class UserService {
         const saldoInicial =0;
         
         try{
-        
+        // cria um identificador unico para o usuario
+        const identificador = uuidv4();
+
         // instancia o model de criptografia de senha e criptografa a senha
         const senhaCriptografada = await CriptografarSenha.criptografarSenha(senha);
 
@@ -19,7 +22,8 @@ class UserService {
             CPF,
             email,
             senha: senhaCriptografada,
-            saldo: saldoInicial
+            saldo: saldoInicial,
+            identificador
         });
         
     // retorna o usuario criado

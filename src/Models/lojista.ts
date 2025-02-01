@@ -8,6 +8,7 @@ export class Lojista extends Model {
     public email!: string;
     public saldo!: number;
     public senha!: string;
+    public identificador!: string;
 }
 
 Lojista.init(
@@ -46,9 +47,13 @@ Lojista.init(
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
             defaultValue: 0
-        }
+        },
+        identificador: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
     },
-
+    },
     {sequelize,
         tableName: 'Lojistas',
         timestamps: false
