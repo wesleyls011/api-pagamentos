@@ -43,6 +43,8 @@ class UserService {
     return user;
   }
 
+
+  // metodo para atualizar um usuario
   async updateUsuario(id: number, dadosAtualizados: Partial<Usuario>){
     const user = await Usuario.findByPk(id);
 
@@ -55,6 +57,8 @@ class UserService {
     return user;
   }
 
+
+  // metodo para deletar um usuario
   async deleteUsuario(id:number){
     const user = await Usuario.findByPk(id);
 
