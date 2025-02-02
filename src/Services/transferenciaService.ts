@@ -2,6 +2,8 @@ import { Usuario } from "../models/Usuario";
 import sequelize from "../config/database";
 import Decimal from "decimal.js";
 import { Lojista } from "../models/Lojista";
+import { autorizarTransferencia } from "./AutorizacaoService";
+import { error } from "console";
 
 class TransferService {
     async realizarTransferencia(payer: string, payee: string, value: number) {
