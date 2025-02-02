@@ -99,7 +99,6 @@ import { verificarTipoUser } from "../middlewares/verificarTipoUser";
  *         description: Erro interno no servidor
  */
 
-
 const router = Router();
 
 // difinir a rota de transferencia
