@@ -5,54 +5,41 @@ import { Lojista } from './Lojista';
 
 export class Transferencia extends Model {
     public readonly id!: number;
+    public payer!: string;
+    public payee!: string;
     public valor!: number;
-    public data!: Date;
-    public usuarioId!: number;
-    public lojistaId!: number;
     public status!: string;
+    public createdAt!: Date;
+    public updatedAt!: Date;
 }
 
 Transferencia.init(
     {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            autoIncrement: true,
-            primaryKey: true
+            type: DataTypes.INTEGER,
+            autoIncrement:true,
+            primaryKey: true,
         },
-        valor: {
-            type: DataTypes.DECIMAL(10, 2),
-            allowNull: false,
-            validate: {
-                min: 0
-            }
-        },
-        data: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
-        },
-        usuarioId: {
-            type: DataTypes.INTEGER.UNSIGNED,
+        payer: {
+            type: DataTypes.STRING,
             allowNull: false,
             references: {
                 model: Usuario,
-                key: 'id'
+                key: 'identificador'
             }
         },
-        lojistaId: {
-            type: DataTypes.INTEGER.UNSIGNED,
+        payee: {
+            type: DataTypes.STRING,
+            allowNull:false
+        },
+        value: {
+            type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
-            references: {
-                model: Lojista,
-                key: 'id'
-            }
         },
         status: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                isIn: [['concluida', 'pendente', 'cancelada']]
-            }
+            defaultValue: "pendente",
         }
     },
 

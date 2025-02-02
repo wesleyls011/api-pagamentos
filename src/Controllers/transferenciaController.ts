@@ -4,6 +4,7 @@ import { autorizarTransferencia } from "../services/AutorizacaoService";
 
 export const transferir = async (req : Request, res: Response)=> {
     const { payer, payee, value } = req.body;
+    const isPayeeLojista = req.body.isPayeeLojista;
     console.log("Corpo da requisição:", req.body);
 
     try{
@@ -14,7 +15,7 @@ export const transferir = async (req : Request, res: Response)=> {
     
         // chama o serviço de transferencia se for autorizado
         console.log("id do payee:", payee);
-        const transferencia = await transferenciaService.realizarTransferencia(payer, payee, value);
+        const transferencia = await transferenciaService.realizarTransferencia(payer, payee, value, isPayeeLojista);
         
         //retorna a transferencia que acabou de ser criada
         return res.status(200).json(transferencia);
