@@ -2,11 +2,10 @@ import { Usuario } from "../models/Usuario";
 import sequelize from "../config/database";
 import Decimal from "decimal.js";
 import { Lojista } from "../models/Lojista";
-import { autorizarTransferencia } from "./AutorizacaoService";
-import { error } from "console";
+import { Transferencia } from "../models/Transferencia";
 
 class TransferService {
-    async realizarTransferencia(payer: string, payee: string, value: number) {
+    async realizarTransferencia(payer: string, payee: string, value: number, isPayeeLojista: boolean) {
         if (value <= 0) {
             throw new Error("O valor nao pode ser zero.");
         }
@@ -16,7 +15,7 @@ class TransferService {
         try {
 
             const payerUser = await Usuario.findOne({ where: { identificador: payer.trim() }, transaction });
-            let payeeUser: Usuario | Lojista | null = await Usuario.findOne({ where: { identificador: payee.trim() }, transaction });
+            let payeeUser: Usuario | Lojista | null = await Usuario.findOne({where: {identificador: payee.trim() }, transaction});
             
             if (!payeeUser) {
                 payeeUser = await Lojista.findOne({ where: { identificador: payee.trim() }, transaction });
@@ -39,7 +38,14 @@ class TransferService {
 
 
             await payerUser.update({ saldo: novoSaldoPayer.toString() }, { transaction });
-            await payeeUser.update({ saldo: novoSaldoPayee.toString() }, { transaction }); 
+            await payeeUser.update({ saldo: novoSaldoPayee.toString() }, { transaction });
+
+            const transferencia = await Transferencia.create({
+                payer: payerUser.identificador,
+                payee: payeeUser.identificador,
+                value: value,
+                status: "completada", // nesse ponto ela fica como completa
+            }, { transaction });
 
             await transaction.commit(); // confirma a transaçao
 
