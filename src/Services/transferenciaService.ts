@@ -48,12 +48,24 @@ class TransferService {
             }, { transaction });
 
             await transaction.commit(); // confirma a transaçao
-
+            
             return { message: "Transferência realizada com sucesso!" };
         } catch (error) {
             await transaction.rollback(); // reverte se der erro
             throw error;
         }
+    }
+
+    async listarTransferencias() {
+        return await Transferencia.findAll();
+    }
+
+    async buscarTransferenciaPorId(id: string) {
+        const transferencia = await Transferencia.findByPk(id);
+        if (!transferencia) {
+            throw new Error("Transferência não encontrada");
+        }
+        return transferencia;
     }
 }
 

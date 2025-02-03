@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
+import bcrypt from 'bcrypt';
 
 export class Usuario extends Model {
     public readonly id!: number;
@@ -57,6 +58,13 @@ Usuario.init(
     {
         sequelize,
         tableName: 'Usuarios',
-        timestamps: false
+        timestamps: false,
+        hooks: {
+            async beforeUpdate(Usuario){
+                if (Usuario.changed('senha')){
+                    Usuario.senha = await bcrypt.hash(Usuario.senha, 10);
+                }
+            }
+        }
     }
 );

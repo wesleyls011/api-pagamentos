@@ -1,5 +1,6 @@
 import {Model, DataTypes} from 'sequelize';
 import sequelize from '../config/database';
+import bcrypt from 'bcrypt';
 
 export class Lojista extends Model {
     public readonly id!: number;
@@ -56,6 +57,12 @@ Lojista.init(
     },
     {sequelize,
         tableName: 'Lojistas',
-        timestamps: false
+        timestamps: false,
+        hooks: {
+            async beforeUpdate(lojista){
+                lojista.senha = await bcrypt.hash(lojista.senha, 10);
+            }
+        }
+
     }
 );

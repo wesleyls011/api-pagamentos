@@ -9,7 +9,7 @@ import userController from '../controllers/UserController';
 
 /**
  * @swagger
- * /api/usuarios:
+ * /usuarios/create:
  *   post:
  *     tags:
  *       - Usuários
@@ -47,13 +47,13 @@ import userController from '../controllers/UserController';
 
 const router = express.Router();
 
-router.post("/usuarios", async (req, res) => {
+router.post("/create", async (req, res) => {
     await userController.createUser(req, res);
 });
 
 /**
  * @swagger
- * /api/usuarios/{id}:
+ * /usuarios/{id}:
  *   get:
  *     tags:
  *       - Usuários
@@ -88,13 +88,13 @@ router.post("/usuarios", async (req, res) => {
  *         description: Usuário não encontrado
  */
 
-router.get("/usuarios/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     await userController.getUserById(req, res);
 });
 
 /**
  * @swagger
- * /api/usuarios/{id}:
+ * /usuarios/{id}:
  *   put:
  *     tags:
  *       - Usuários
@@ -139,13 +139,13 @@ router.get("/usuarios/:id", async (req, res) => {
  *         description: Usuário não encontrado
  */
 
-router.put("/usuarios/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     await userController.updateUser(req, res);
 });
 
 /**
  * @swagger
- * /api/usuarios/{id}:
+ * /usuarios/{id}:
  *   delete:
  *     tags:
  *       - Usuários
@@ -165,7 +165,7 @@ router.put("/usuarios/:id", async (req, res) => {
  *         description: Usuário não encontrado
  */
 
-router.delete("/usuarios/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     await userController.deleteUser(req, res);
 });
 

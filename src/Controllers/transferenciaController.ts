@@ -6,6 +6,16 @@ export const transferir = async (req : Request, res: Response)=> {
     const { payer, payee, value } = req.body;
     const isPayeeLojista = req.body.isPayeeLojista;
     console.log("Corpo da requisição:", req.body);
+    
+    const listarTransferencias = async (req: Request, res: Response) => {
+        try {
+            const transferencias = await transferenciaService.listarTransferencias();
+            return res.status(200).json(transferencias);
+        } catch (error: unknown) {
+            console.error("Erro ao listar transferências", error);
+            return res.status(500).json({ error: "Erro ao buscar transferências" });
+        }
+    };
 
     try{
         const isAuthorized = await autorizarTransferencia();
@@ -23,12 +33,22 @@ export const transferir = async (req : Request, res: Response)=> {
     } catch (error: unknown) {
         console.error("erro ao realizar transferencia", error);
         if (error instanceof Error) {
-        return res.status(500).json({ error: error.message });
+            return res.status(500).json({ error: error.message });
+            
+        } else {
+            return res.status(500).json({ error: 'Erro desconhecido' });
+        }
         
-    } else {
-        return res.status(500).json({ error: 'Erro desconhecido' });
     }
-
 }
 
-}
+export const listarTransferencias = async (req: Request, res: Response) => {
+    try {
+        const transferencias = await transferenciaService.listarTransferencias();
+        return res.status(200).json(transferencias);
+    } catch (error: unknown) {
+        console.error("Erro ao listar transferências", error);
+        return res.status(500).json({ error: "Erro ao buscar transferências" });
+    }
+};
+
