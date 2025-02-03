@@ -1,23 +1,21 @@
 import express from 'express';
+import { setupSwagger } from './docs/swagger';
 import transferenciaRoutes from './routes/transferenciaRoutes';
-import bodyParser from 'body-parser';
 import userRoutes from './routes/usuarioRoutes';
 import lojistaRoutes from './routes/lojistaRoutes';
-import { setupSwagger } from './docs/swagger';
 
 const app = express();
 
-app.use(bodyParser.json());
 app.use(express.json());
 
 // usar as rotas de transferencia
-app.use('/api', transferenciaRoutes);
+app.use('/transferencia', transferenciaRoutes);
 
 // usar as rotas de usuario
-app.use('/api', userRoutes);
+app.use('/usuarios', userRoutes);
 
 // usar as rotas de lojista
-app.use('/api', lojistaRoutes);
+app.use('/lojistas', lojistaRoutes);
 
 // configurar o swagger
 setupSwagger(app);
