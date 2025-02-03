@@ -51,9 +51,3 @@ Transferencia.init(
 
     
 );
-
-Transferencia.belongsTo(Usuario, {foreignKey: 'usuarioId', onDelete: 'CASCADE'});
-Transferencia.belongsTo(Lojista, {foreignKey: 'lojistaId', onDelete: 'CASCADE'});
-
-Usuario.hasMany(Transferencia, {foreignKey: 'usuarioId'});
-Lojista.hasMany(Transferencia, {foreignKey: 'lojistaId'});

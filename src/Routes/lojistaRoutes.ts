@@ -9,7 +9,7 @@ import lojistaController from '../controllers/LojistaController';
 
 /**
  * @swagger
- * /api/lojistas:
+ * /lojistas/create:
  *   post:
  *     tags:
  *       - Lojistas
@@ -47,13 +47,13 @@ import lojistaController from '../controllers/LojistaController';
 
 const router = express.Router();
 
-router.post("/lojistas", async (req, res) => {
+router.post("/create", async (req, res) => {
     await lojistaController.createLojista(req, res);
 });
 
 /**
  * @swagger
- * /api/lojistas/{id}:
+ * /lojistas/{id}:
  *   get:
  *     tags:
  *       - Lojistas
@@ -88,13 +88,13 @@ router.post("/lojistas", async (req, res) => {
  *         description: Lojista não encontrado
  */
 
-router.get("/lojistas/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     await lojistaController.getLojistaById(req, res);
 });
 
 /**
  * @swagger
- * /api/lojistas/{id}:
+ * /lojistas/{id}:
  *   put:
  *     tags:
  *       - Lojistas
@@ -139,13 +139,13 @@ router.get("/lojistas/:id", async (req, res) => {
  *         description: Lojista não encontrado
  */
 
-router.put("/lojistas/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     await lojistaController.updateLojista(req, res);
 });
 
 /**
  * @swagger
- * /api/lojistas/{id}:
+ * /lojistas/{id}:
  *   delete:
  *     tags:
  *       - Lojistas
@@ -165,7 +165,7 @@ router.put("/lojistas/:id", async (req, res) => {
  *         description: Lojista não encontrado
  */
 
-router.delete("/lojistas/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     await lojistaController.deleteLojista(req, res);
 });
 

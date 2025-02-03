@@ -57,7 +57,9 @@ class TransferService {
     }
 
     async listarTransferencias() {
-        return await Transferencia.findAll();
+        const transferencias = await Transferencia.findAll();
+        console.log("Transferências encontradas:", transferencias);
+        return transferencias;
     }
 
     async buscarTransferenciaPorId(id: string) {

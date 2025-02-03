@@ -7,6 +7,10 @@ const sequelize = new Sequelize(process.env.DB_NAME!, process.env.DB_USER!, proc
   host: process.env.DB_HOST!,
   dialect: 'mysql',
   logging: false,
+  timezone: '-03:00',
+  dialectOptions: {
+    timezone: 'local',
+  }
 });
 
 sequelize.authenticate()

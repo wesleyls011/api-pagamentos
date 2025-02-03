@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { transferir, listarTransferencias } from "../controllers/TransferenciaController";
+import { transferir, listarTransferencias, buscarTransferenciaPorId } from "../controllers/TransferenciaController";
 import { validarTransferencia } from "../middlewares/validarTransferencia";
 import { verificarSaldo } from "../middlewares/verificarSaldo";
 import { verificarTipoUser } from "../middlewares/verificarTipoUser";
@@ -8,7 +8,7 @@ const router = Router();
 
 /**
  * @swagger
- * /transferencia:
+ * /transferencia/create:
  *   post:
  *     summary: Realiza uma transferência entre usuários
  *     tags: [Transferências]
@@ -107,7 +107,7 @@ const router = Router();
  */
 
 
-router.post('/transferencia',
+router.post('/create',
     verificarTipoUser,
     verificarSaldo,   // usando o middleware de verificar saldo
     validarTransferencia,  // usando o middleware de validar transferencia
@@ -118,6 +118,55 @@ router.post('/transferencia',
 
 router.get('/listar', async (req, res) => {
     await listarTransferencias(req, res);
+});
+
+/**
+ * @swagger
+ * /transferencia/{id}:
+ *   get:
+ *     summary: Busca uma transferência por ID
+ *     description: Retorna os detalhes de uma transferência específica pelo seu ID.
+ *     tags:
+ *       - Transferências
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID da transferência
+ *     responses:
+ *       200:
+ *         description: Transferência encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 payer:
+ *                   type: string
+ *                 payee:
+ *                   type: string
+ *                 value:
+ *                   type: number
+ *                 status:
+ *                   type: string
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *       404:
+ *         description: Transferência não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+
+router.get("/:id", async (req, res) => {
+    await buscarTransferenciaPorId(req,res);
 });
 
 export default router;
