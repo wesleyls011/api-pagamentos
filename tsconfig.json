@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2021",                 
-    "module": "CommonJS",               
-    "rootDir": "./src",                 
-    "outDir": "./dist",                 
-    "strict": true,                     
-    "esModuleInterop": true,            
-    "skipLibCheck": true,               
-    "forceConsistentCasingInFileNames": true 
+    "outDir": "./dist",              // A pasta onde os arquivos JS serão gerados
+    "rootDir": "./src",              // A pasta onde estão os arquivos TS (caso você tenha uma pasta src)
+    "esModuleInterop": true,         // Permite importar módulos ES6
+    "target": "ES6",                 // Define a versão do JavaScript de saída
+    "module": "commonjs",            // Define o tipo de módulo
+    "strict": true,                  // Habilita checagens estritas de tipo
+    "forceConsistentCasingInFileNames": true, // Garante consistência na diferença de maiúsculas e minúsculas no nome dos arquivos
+    "skipLibCheck": true             // Ignora a checagem de bibliotecas
   },
-  "include": ["src"],                   
-  "exclude": ["node_modules", "dist"] 
+  "include": [
+    "src/**/*.ts"                    // Inclui todos os arquivos .ts dentro da pasta src
+  ]
 }

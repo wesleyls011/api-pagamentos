@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import lojistaService from '../services/LojistaService';
+import lojistaService from '../services/lojistaService';
 
 class lojistaController {
 

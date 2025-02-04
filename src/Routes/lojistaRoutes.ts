@@ -1,5 +1,5 @@
 import express from 'express';
-import lojistaController from '../controllers/LojistaController';
+import lojistaController from '../controllers/lojistaController';
 
 /**
  * @swagger
