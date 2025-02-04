@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { transferir, listarTransferencias, buscarTransferenciaPorId } from "../controllers/TransferenciaController";
+import { transferir, listarTransferencias, buscarTransferenciaPorId } from "../controllers/transferenciaController";
 import { validarTransferencia } from "../middlewares/validarTransferencia";
 import { verificarSaldo } from "../middlewares/verificarSaldo";
 import { verificarTipoUser } from "../middlewares/verificarTipoUser";
