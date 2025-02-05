@@ -10,10 +10,6 @@ export async function up(queryInterface, Sequelize) {
         payer: {
             type: DataTypes.STRING,
             allowNull: false,
-            references: {
-                model: 'Usuarios',
-                key: 'identificador',
-            },
         },
         payee: {
             type: DataTypes.STRING,
