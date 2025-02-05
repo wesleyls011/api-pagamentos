@@ -1,11 +1,20 @@
-import { Router } from "express";
-import { transferir, listarTransferencias, buscarTransferenciaPorId } from "../Controllers/transferenciaController";
-import { validarTransferencia } from "../Middlewares/validarTransferencia";
-import { verificarSaldo } from "../Middlewares/verificarSaldo";
-import { verificarTipoUser } from "../Middlewares/verificarTipoUser";
-
-const router = Router();
-
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const transferenciaController_1 = require("../controllers/transferenciaController");
+const validarTransferencia_1 = require("../middlewares/validarTransferencia");
+const verificarSaldo_1 = require("../middlewares/verificarSaldo");
+const verificarTipoUser_1 = require("../middlewares/verificarTipoUser");
+const router = (0, express_1.Router)();
 /**
  * @swagger
  * /transferencia/create:
@@ -67,7 +76,6 @@ const router = Router();
  *       500:
  *         description: Erro interno no servidor
  */
-
 /**
  * @swagger
  * /transferencia/listar:
@@ -105,21 +113,14 @@ const router = Router();
  *       500:
  *         description: Erro interno no servidor
  */
-
-
-router.post('/create',
-    verificarTipoUser,
-    verificarSaldo,   // usando o middleware de verificar saldo
-    validarTransferencia,  // usando o middleware de validar transferencia
-    async (req, res) => {
-        await transferir(req, res);
-    },  // usando o controller pra fazer a transferencia
-);
-
-router.get('/listar', async (req, res) => {
-    await listarTransferencias(req, res);
-});
-
+router.post('/create', verificarTipoUser_1.verificarTipoUser, verificarSaldo_1.verificarSaldo, // usando o middleware de verificar saldo
+validarTransferencia_1.validarTransferencia, // usando o middleware de validar transferencia
+(req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, transferenciaController_1.transferir)(req, res);
+}));
+router.get('/listar', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, transferenciaController_1.listarTransferencias)(req, res);
+}));
 /**
  * @swagger
  * /transferencia/{id}:
@@ -164,9 +165,7 @@ router.get('/listar', async (req, res) => {
  *       500:
  *         description: Erro no servidor
  */
-
-router.get("/:id", async (req, res) => {
-    await buscarTransferenciaPorId(req,res);
-});
-
-export default router;
+router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, transferenciaController_1.buscarTransferenciaPorId)(req, res);
+}));
+exports.default = router;

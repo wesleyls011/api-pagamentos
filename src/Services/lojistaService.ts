@@ -1,6 +1,5 @@
-import { Lojista } from "../models/lojista";
-import { Response, Request } from "express";
-import { CriptografarSenha } from "../models/CriptografarSenha";
+import { Lojista } from "../Models/lojista";
+import { CriptografarSenha } from "../Models/CriptografarSenha";
 import {v4 as uuidv4} from 'uuid';
 
 class LojistaService {

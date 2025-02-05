@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import transferenciaService from "../services/transferenciaService";
-import { autorizarTransferencia } from "../services/AutorizacaoService";
+import transferenciaService from "../Services/transferenciaService";
+import { autorizarTransferencia } from "../Services/AutorizacaoService";
 
 export const transferir = async (req : Request, res: Response)=> {
     const { payer, payee, value } = req.body;

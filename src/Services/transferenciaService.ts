@@ -1,8 +1,8 @@
-import { Usuario } from "../models/usuario";
+import { Usuario } from "../Models/usuario";
 import sequelize from "../config/database";
 import Decimal from "decimal.js";
-import { Lojista } from "../models/lojista";
-import { Transferencia } from "../models/Transferencia";
+import { Lojista } from "../Models/lojista";
+import { Transferencia } from "../Models/Transferencia";
 
 class TransferService {
     async realizarTransferencia(payer: string, payee: string, value: number, isPayeeLojista: boolean) {
