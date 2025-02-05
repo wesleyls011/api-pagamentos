@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Lojista } from "../models/lojista";
+import { Lojista } from "../Models/lojista";
 
 export const verificarTipoUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { payer, payee } = req.body;

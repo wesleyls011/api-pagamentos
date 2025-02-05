@@ -28,8 +28,13 @@ Usuario.init(
             allowNull: false,
             unique: true,
             validate: {
-                len: [11, 11],
-                isNumeric: true
+                len: {
+                    args: [11, 11],
+                    msg: "O CPF deve ter exatamente 11 dígitos.",
+                },
+                isNumeric: {
+                    msg: "O CPF deve conter apenas números.",
+                }
             }
         },
         email: {
@@ -37,7 +42,9 @@ Usuario.init(
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true,
+                isEmail: {
+                    msg: "O e-mail informado é inválido.",
+                },
             },
         },
         senha: {
@@ -53,15 +60,15 @@ Usuario.init(
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
     },
-},
     {
         sequelize,
         tableName: 'Usuarios',
         timestamps: false,
         hooks: {
-            async beforeUpdate(Usuario){
-                if (Usuario.changed('senha')){
+            async beforeUpdate(Usuario) {
+                if (Usuario.changed('senha')) {
                     Usuario.senha = await bcrypt.hash(Usuario.senha, 10);
                 }
             }
