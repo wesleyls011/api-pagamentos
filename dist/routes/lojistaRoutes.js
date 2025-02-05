@@ -1,12 +1,24 @@
-import express from 'express';
-import lojistaController from '../Controllers/lojistaController';
-
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const lojistaController_1 = __importDefault(require("../controllers/lojistaController"));
 /**
  * @swagger
  * tags:
  *   - name: "Lojistas"
  */
-
 /**
  * @swagger
  * /lojistas/create:
@@ -44,13 +56,10 @@ import lojistaController from '../Controllers/lojistaController';
  *       400:
  *         description: Dados inválidos ou falta de campos obrigatórios
  */
-
-const router = express.Router();
-
-router.post("/create", async (req, res) => {
-    await lojistaController.createLojista(req, res);
-});
-
+const router = express_1.default.Router();
+router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield lojistaController_1.default.createLojista(req, res);
+}));
 /**
  * @swagger
  * /lojistas/{id}:
@@ -87,11 +96,9 @@ router.post("/create", async (req, res) => {
  *       404:
  *         description: Lojista não encontrado
  */
-
-router.get("/:id", async (req, res) => {
-    await lojistaController.getLojistaById(req, res);
-});
-
+router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield lojistaController_1.default.getLojistaById(req, res);
+}));
 /**
  * @swagger
  * /lojistas/{id}:
@@ -138,11 +145,9 @@ router.get("/:id", async (req, res) => {
  *       404:
  *         description: Lojista não encontrado
  */
-
-router.put("/:id", async (req, res) => {
-    await lojistaController.updateLojista(req, res);
-});
-
+router.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield lojistaController_1.default.updateLojista(req, res);
+}));
 /**
  * @swagger
  * /lojistas/{id}:
@@ -164,9 +169,7 @@ router.put("/:id", async (req, res) => {
  *       404:
  *         description: Lojista não encontrado
  */
-
-router.delete("/:id", async (req, res) => {
-    await lojistaController.deleteLojista(req, res);
-});
-
-export default router;
+router.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield lojistaController_1.default.deleteLojista(req, res);
+}));
+exports.default = router;
