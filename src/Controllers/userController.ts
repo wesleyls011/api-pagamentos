@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import userService from "../Services/userService";
+import { Usuario } from '../Models/usuario';
 
 class userController {
 
@@ -10,7 +11,7 @@ class userController {
 
             const user = await userService.createUsuario(nomeCompleto, CPF, email, senha, saldo);
 
-            return res.status(201).json(user);
+            return res.status(201).json({message:"usuario criado com sucesso",user});
         } catch (error) {
             console.error('Error:', error);
             return res.status(500).json({ message: "erro ao criar o usuario" });
@@ -34,7 +35,7 @@ class userController {
 
         try {
             const userAtualizado = await userService.updateUsuario(Number(id), dadosAtualizados);
-            return res.status(200).json(userAtualizado);
+            return res.status(200).json({message: "usuario atualizado com sucesso",userAtualizado});
         } catch (error) {
             return res.status(404).json({ message: "usuario nao encontrado" });
         }
@@ -45,7 +46,7 @@ class userController {
 
         try {
             const userDeletado = await userService.deleteUsuario(Number(id));
-            return res.status(200).json(userDeletado);
+            return res.status(200).json({message: "usuario deletado com sucesso",userDeletado});
         } catch (error) {
             return res.status(404).json({ message: "usuario nao encontrado" });
         }
