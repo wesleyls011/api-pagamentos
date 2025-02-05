@@ -187,7 +187,7 @@ A API utiliza middlewares para validação de dados, verificação de saldo e ve
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seuusuario/payflex-solutions.git
+   git clone https://github.com/wesleyls011/api-pagamentos.git
    ```
 
 2. Instale as dependências:
