@@ -73,7 +73,7 @@ class UserService {
 
         await user.destroy();
 
-        return { message: 'usuario deletado com sucesso' };
+        return user;
     }
 }
 
