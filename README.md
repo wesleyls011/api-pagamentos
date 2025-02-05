@@ -196,11 +196,18 @@ A API utiliza middlewares para validação de dados, verificação de saldo e ve
    ```bash
    npm install
    ```
+   
+3. Execute as migrates para o banco de dados:
+   ```bash
+   npx sequelize db:create
+   npx sequelize db:migrate
+   ```
 
-3. Rode o servidor:
+4. Rode o servidor:
    ```bash
    npx ts-node src/app.ts
    ```
-
-4. Acesse a API através de `localhost:3000`.
+   
+   
+5. Acesse a API através de `localhost:3000`.
 
