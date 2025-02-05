@@ -10,16 +10,11 @@ class lojistaController {
 
             const lojista = await lojistaService.createLojista(nomeLojista, CNPJ, email, senha, saldo);
 
-            return res.status(201).json({ message: "lojista criado com sucesso", lojista });
-        } catch (error: any) {
-            if (error.name === "SequelizeValidationError") {
-                return res.status(400).json({
-                    message: error.errors.map((err: any) => err.message),
-                });
-            }
+            return res.status(201).json({message: "lojista criado com sucesso", lojista});
+        } catch (error) {
+            console.error('Error:', error);
+            return res.status(500).json({ message: "erro ao criar lojista" })
         }
-
-        return res.status(500).json({ message: "Erro interno no servidor" });
     }
 
     async getLojistaById(req: Request, res: Response) {
@@ -39,7 +34,7 @@ class lojistaController {
 
         try {
             const lojistaAtualizado = await lojistaService.updateLojista(Number(id), dadosAtualizados);
-            return res.status(200).json({ message: "lojista atualizado com sucesso", lojistaAtualizado });
+            return res.status(200).json({message:"lojista atualizado com sucesso",lojistaAtualizado});
         } catch (error) {
             return res.status(404).json({ message: "lojista nao encontrado" });
         }
@@ -51,7 +46,7 @@ class lojistaController {
 
         try {
             const lojistaDeletado = await lojistaService.deleteLojista(Number(id));
-            return res.status(200).json({ message: "lojista deletado com sucesso", lojistaDeletado });
+            return res.status(200).json({message: "lojista deletado com sucesso",lojistaDeletado});
         } catch (error) {
             return res.status(404).json({ message: "lojista nao encontrado" });
         }
