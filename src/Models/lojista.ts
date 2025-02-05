@@ -1,4 +1,4 @@
-import {Model, DataTypes} from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 import bcrypt from 'bcrypt';
 
@@ -28,17 +28,24 @@ Lojista.init(
             allowNull: false,
             unique: true,
             validate: {
-                len: [14, 14],
-                isNumeric: true
-            }
+                len: {
+                    args: [14, 14],
+                    msg: "O CNPJ deve ter exatamente 14 dígitos.",
+                },
+                isNumeric: {
+                    msg: "O CNPJ deve conter apenas números.",
+                },
+            },
         },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true
-            }
+                isEmail: {
+                    msg: "O e-mail informado é inválido.",
+                },
+            },
         },
         senha: {
             type: DataTypes.STRING,
@@ -53,13 +60,14 @@ Lojista.init(
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
     },
-    },
-    {sequelize,
+    {
+        sequelize,
         tableName: 'Lojistas',
         timestamps: false,
         hooks: {
-            async beforeUpdate(lojista){
+            async beforeUpdate(lojista) {
                 lojista.senha = await bcrypt.hash(lojista.senha, 10);
             }
         }
