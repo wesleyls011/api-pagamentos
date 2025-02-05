@@ -10,6 +10,8 @@ A API PayFlex Solutions permite gerenciar usuários, lojistas e transferências.
 - Express
 - MySQL
 - Sequelize
+- UUID
+- Bcrypt
 - Middlewares de validação
 - Swagger (para documentação da API)
 
