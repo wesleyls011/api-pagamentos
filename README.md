@@ -197,7 +197,7 @@ A API utiliza middlewares para validação de dados, verificação de saldo e ve
 
 3. Rode o servidor:
    ```bash
-   npm start
+   npx ts-node src/app.ts
    ```
 
 4. Acesse a API através de `localhost:3000`.
