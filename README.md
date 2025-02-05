@@ -6,6 +6,7 @@ A API PayFlex Solutions permite gerenciar usuários, lojistas e transferências.
 ## Tecnologias Utilizadas
 
 - Node.js
+- TypeScript
 - Express
 - MySQL
 - Sequelize
