@@ -1,8 +1,8 @@
 import express from 'express';
 import { setupSwagger } from './docs/swagger';
-import transferenciaRoutes from './routes/transferenciaRoutes';
-import userRoutes from './routes/usuarioRoutes';
-import lojistaRoutes from './routes/lojistaRoutes';
+import transferenciaRoutes from './Routes/transferenciaRoutes';
+import userRoutes from './Routes/usuarioRoutes';
+import lojistaRoutes from './Routes/lojistaRoutes';
 
 const app = express();
 
