@@ -1,7 +1,7 @@
-import { Usuario } from "../models/usuario";
+import { Usuario } from "../models/Usuario";
 import sequelize from "../config/database";
 import Decimal from "decimal.js";
-import { Lojista } from "../models/lojista";
+import { Lojista } from "../models/Lojista";
 import { Transferencia } from "../models/Transferencia";
 
 class TransferService {

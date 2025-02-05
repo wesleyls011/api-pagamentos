@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import transferenciaService from "../services/transferenciaService";
+import transferenciaService from "../services/TransferenciaService";
 import { autorizarTransferencia } from "../services/AutorizacaoService";
 
 export const transferir = async (req : Request, res: Response)=> {

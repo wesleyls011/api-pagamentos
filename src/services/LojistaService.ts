@@ -1,4 +1,4 @@
-import { Lojista } from "../models/lojista";
+import { Lojista } from "../models/Lojista";
 import { Response, Request } from "express";
 import { CriptografarSenha } from "../models/CriptografarSenha";
 import {v4 as uuidv4} from 'uuid';
